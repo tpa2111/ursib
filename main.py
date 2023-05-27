@@ -90,9 +90,6 @@ q2 = 'insert into my_table (type, q, data, id, company, value, date) values (?, 
 params = [tuple(v.strftime('%Y-%m-%d') if isinstance(v, pd.Timestamp) else v for k, v in x.items()) for x in data.to_dict('records')]
 sql_m.execute(query=q2, params=params)
 
-d3 = sql.execute(query='select sum(value) oil from my_table where q = \'Qoil\'')
+d3 = sql.execute(query='select q, sum(value) value from my_table group by q')
 print(20*'=')
 print(d3)
-d4 = sql.execute(query='select sum(value) liq from my_table where q = \'Qliq\'')
-print(20*'=')
-print(d4)
